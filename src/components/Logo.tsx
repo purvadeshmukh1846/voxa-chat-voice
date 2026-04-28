@@ -1,11 +1,15 @@
-import { AudioLines } from "lucide-react";
+import logoImg from "@/assets/voxa-logo.jpg";
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-hero shadow-glow">
-        <AudioLines className="h-5 w-5 text-primary-foreground" />
-      </div>
+      <img
+        src={logoImg}
+        alt="Voxa logo"
+        width={36}
+        height={36}
+        className="h-9 w-9 rounded-xl object-cover shadow-glow"
+      />
       <span className="text-xl font-bold tracking-tight">Voxa</span>
     </div>
   );
