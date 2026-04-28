@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { Button } from "@/components/ui/button";
-import heroImg from "@/assets/hero-split.jpg";
+import heroImg from "@/assets/hero-split.png";
 import { ArrowRight, Check, Languages, MessageSquareText, Search, Sparkles, Zap } from "lucide-react";
 
 const features = [
