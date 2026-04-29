@@ -13,7 +13,6 @@ import TranscriptDetail from "./pages/TranscriptDetail";
 import Settings from "./pages/Settings";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { AuthProvider } from "./contexts/AuthContext";
-import { TranscriptProvider } from "./contexts/TranscriptContext";
 
 const queryClient = new QueryClient();
 
@@ -21,8 +20,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
       <AuthProvider>
-        <TranscriptProvider>
-          <TooltipProvider>
+        <TooltipProvider>
             <Toaster />
             <Sonner />
             <BrowserRouter>
@@ -39,8 +37,7 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
-          </TooltipProvider>
-        </TranscriptProvider>
+        </TooltipProvider>
       </AuthProvider>
     </ThemeProvider>
   </QueryClientProvider>
