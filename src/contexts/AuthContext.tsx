@@ -1,74 +1,113 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import type { Session, User } from "@supabase/supabase-js";
+import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable";
 
-export interface VoxaUser {
+export interface VoxaProfile {
   id: string;
-  fullName: string;
-  businessName: string;
-  email: string;
-  whatsappNumber?: string;
-  timezone?: string;
+  full_name: string | null;
+  business_name: string | null;
+  email: string | null;
+  whatsapp_number: string | null;
+  timezone: string | null;
   plan: "Free" | "Pro" | "Premium";
 }
 
+interface SignUpInput {
+  fullName: string;
+  businessName: string;
+  email: string;
+  password: string;
+  whatsappNumber?: string;
+  timezone?: string;
+}
+
 interface AuthContextValue {
-  user: VoxaUser | null;
+  user: User | null;
+  session: Session | null;
+  profile: VoxaProfile | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (data: Omit<VoxaUser, "id" | "plan"> & { password: string }) => Promise<void>;
-  signOut: () => void;
+  signUp: (data: SignUpInput) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  signOut: () => Promise<void>;
+  refreshProfile: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
-const STORAGE_KEY = "voxa.user";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<VoxaUser | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<VoxaProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const loadProfile = async (uid: string) => {
+    const { data } = await supabase.from("profiles").select("*").eq("id", uid).maybeSingle();
+    setProfile((data as VoxaProfile | null) ?? null);
+  };
+
   useEffect(() => {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      try { setUser(JSON.parse(raw)); } catch { /* ignore */ }
-    }
-    setLoading(false);
+    // 1) subscribe FIRST
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, s) => {
+      setSession(s);
+      setUser(s?.user ?? null);
+      if (s?.user) {
+        // defer to avoid deadlock inside auth callback
+        setTimeout(() => loadProfile(s.user.id), 0);
+      } else {
+        setProfile(null);
+      }
+    });
+    // 2) then fetch existing session
+    supabase.auth.getSession().then(({ data: { session: s } }) => {
+      setSession(s);
+      setUser(s?.user ?? null);
+      if (s?.user) loadProfile(s.user.id);
+      setLoading(false);
+    });
+    return () => sub.subscription.unsubscribe();
   }, []);
 
-  const persist = (u: VoxaUser | null) => {
-    setUser(u);
-    if (u) localStorage.setItem(STORAGE_KEY, JSON.stringify(u));
-    else localStorage.removeItem(STORAGE_KEY);
+  const signIn = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
   };
 
-  // TODO: Replace with Supabase auth.signInWithPassword
-  const signIn = async (email: string, _password: string) => {
-    await new Promise((r) => setTimeout(r, 600));
-    persist({
-      id: "u_demo",
-      fullName: "Demo User",
-      businessName: "Voxa Café",
-      email,
-      plan: "Pro",
-    });
-  };
-
-  // TODO: Replace with Supabase auth.signUp
-  const signUp: AuthContextValue["signUp"] = async (data) => {
-    await new Promise((r) => setTimeout(r, 700));
-    persist({
-      id: `u_${Date.now()}`,
-      fullName: data.fullName,
-      businessName: data.businessName,
+  const signUp = async (data: SignUpInput) => {
+    const { error } = await supabase.auth.signUp({
       email: data.email,
-      whatsappNumber: data.whatsappNumber,
-      timezone: data.timezone,
-      plan: "Free",
+      password: data.password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/dashboard`,
+        data: {
+          full_name: data.fullName,
+          business_name: data.businessName,
+          whatsapp_number: data.whatsappNumber,
+          timezone: data.timezone,
+        },
+      },
     });
+    if (error) throw error;
   };
 
-  const signOut = () => persist(null);
+  const signInWithGoogle = async () => {
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: `${window.location.origin}/dashboard`,
+    });
+    if (result.error) throw result.error;
+  };
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+  };
+
+  const refreshProfile = async () => {
+    if (user) await loadProfile(user.id);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, session, profile, loading, signIn, signUp, signInWithGoogle, signOut, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );

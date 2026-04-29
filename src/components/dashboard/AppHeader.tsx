@@ -5,9 +5,9 @@ import { LogOut, Menu } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export function AppHeader({ onMenu }: { onMenu?: () => void }) {
-  const { user, signOut } = useAuth();
+  const { profile, signOut } = useAuth();
   const navigate = useNavigate();
-  const initials = (user?.fullName ?? "U")
+  const initials = (profile?.full_name ?? profile?.email ?? "U")
     .split(" ").map((s) => s[0]).slice(0, 2).join("").toUpperCase();
 
   return (
@@ -20,7 +20,7 @@ export function AppHeader({ onMenu }: { onMenu?: () => void }) {
         )}
         <div className="min-w-0">
           <p className="text-xs text-muted-foreground">Business</p>
-          <p className="truncate text-sm font-semibold">{user?.businessName ?? "Voxa"}</p>
+          <p className="truncate text-sm font-semibold">{profile?.business_name || "Voxa"}</p>
         </div>
       </div>
       <div className="flex items-center gap-2">
@@ -28,7 +28,7 @@ export function AppHeader({ onMenu }: { onMenu?: () => void }) {
         <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-hero text-sm font-semibold text-primary-foreground shadow-glow">
           {initials}
         </div>
-        <Button variant="ghost" size="icon" onClick={() => { signOut(); navigate("/"); }} aria-label="Sign out">
+        <Button variant="ghost" size="icon" onClick={async () => { await signOut(); navigate("/"); }} aria-label="Sign out">
           <LogOut className="h-4 w-4" />
         </Button>
       </div>

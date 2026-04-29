@@ -1,10 +1,10 @@
-import { Transcript } from "@/data/mockTranscripts";
+import type { VoiceNote } from "@/services/voiceNotes";
 import { intentStyle, statusStyle, relativeTime } from "@/lib/transcriptUi";
 import { cn } from "@/lib/utils";
 import { Clock, Languages } from "lucide-react";
 
 interface Props {
-  transcript: Transcript;
+  transcript: VoiceNote;
   active?: boolean;
   onClick?: () => void;
 }
@@ -23,7 +23,7 @@ export function TranscriptCard({ transcript, active, onClick }: Props) {
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="font-mono text-xs text-muted-foreground">{transcript.customerNumber}</p>
+          <p className="font-mono text-xs text-muted-foreground">{transcript.customer_number}</p>
           <p className="mt-1 font-semibold leading-snug text-foreground line-clamp-2">
             {transcript.summary}
           </p>
@@ -42,7 +42,7 @@ export function TranscriptCard({ transcript, active, onClick }: Props) {
         </span>
         <span className="flex items-center gap-1 text-muted-foreground ml-auto">
           <Clock className="h-3 w-3" />
-          {relativeTime(transcript.createdAt)}
+          {relativeTime(transcript.created_at)}
         </span>
       </div>
     </button>
