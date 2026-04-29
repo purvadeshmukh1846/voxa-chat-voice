@@ -1,4 +1,7 @@
-import { Intent, Status } from "@/data/mockTranscripts";
+import type { VoiceNoteIntent, VoiceNoteStatus } from "@/services/voiceNotes";
+
+export type Intent = VoiceNoteIntent;
+export type Status = VoiceNoteStatus;
 
 export function intentStyle(intent: Intent) {
   const map: Record<Intent, string> = {
@@ -7,6 +10,8 @@ export function intentStyle(intent: Intent) {
     Complaint: "bg-destructive/15 text-destructive border border-destructive/30",
     Urgent: "bg-gold/20 text-gold border border-gold/40",
     General: "bg-muted text-muted-foreground border border-border",
+    Order: "bg-primary/15 text-primary border border-primary/30",
+    Cancellation: "bg-destructive/15 text-destructive border border-destructive/30",
   };
   return { cls: map[intent] };
 }
@@ -14,8 +19,9 @@ export function intentStyle(intent: Intent) {
 export function statusStyle(status: Status) {
   const map: Record<Status, string> = {
     Open: "bg-gold/15 text-gold border border-gold/30",
-    Replied: "bg-primary/15 text-primary border border-primary/30",
+    "In Progress": "bg-primary/15 text-primary border border-primary/30",
     Resolved: "bg-muted text-muted-foreground border border-border",
+    Archived: "bg-muted text-muted-foreground border border-border",
   };
   return { cls: map[status] };
 }
