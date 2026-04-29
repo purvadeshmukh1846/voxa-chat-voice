@@ -56,8 +56,8 @@ export default function Signup() {
       });
       toast.success("Account created!");
       navigate("/dashboard");
-    } catch {
-      toast.error("Signup failed");
+    } catch (e) {
+      toast.error("Signup failed", { description: (e as Error).message });
     } finally {
       setLoading(false);
     }
