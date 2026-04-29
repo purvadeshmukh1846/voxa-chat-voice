@@ -14,7 +14,223 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      customers: {
+        Row: {
+          created_at: string
+          id: string
+          name: string | null
+          notes: string | null
+          phone: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name?: string | null
+          notes?: string | null
+          phone: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string | null
+          notes?: string | null
+          phone?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      entities: {
+        Row: {
+          created_at: string
+          id: string
+          type: string
+          user_id: string
+          value: string
+          voice_note_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          type: string
+          user_id: string
+          value: string
+          voice_note_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          type?: string
+          user_id?: string
+          value?: string
+          voice_note_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entities_voice_note_id_fkey"
+            columns: ["voice_note_id"]
+            isOneToOne: false
+            referencedRelation: "voice_notes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          business_name: string | null
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          plan: Database["public"]["Enums"]["user_plan"]
+          timezone: string | null
+          updated_at: string
+          whatsapp_number: string | null
+        }
+        Insert: {
+          business_name?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          plan?: Database["public"]["Enums"]["user_plan"]
+          timezone?: string | null
+          updated_at?: string
+          whatsapp_number?: string | null
+        }
+        Update: {
+          business_name?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          plan?: Database["public"]["Enums"]["user_plan"]
+          timezone?: string | null
+          updated_at?: string
+          whatsapp_number?: string | null
+        }
+        Relationships: []
+      }
+      tags: {
+        Row: {
+          color: string | null
+          created_at: string
+          id: string
+          name: string
+          user_id: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          user_id: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      voice_note_tags: {
+        Row: {
+          created_at: string
+          tag_id: string
+          user_id: string
+          voice_note_id: string
+        }
+        Insert: {
+          created_at?: string
+          tag_id: string
+          user_id: string
+          voice_note_id: string
+        }
+        Update: {
+          created_at?: string
+          tag_id?: string
+          user_id?: string
+          voice_note_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "voice_note_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "tags"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "voice_note_tags_voice_note_id_fkey"
+            columns: ["voice_note_id"]
+            isOneToOne: false
+            referencedRelation: "voice_notes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      voice_notes: {
+        Row: {
+          created_at: string
+          customer_id: string | null
+          customer_number: string
+          duration_sec: number
+          full_text: string
+          id: string
+          intent: Database["public"]["Enums"]["voice_note_intent"]
+          language: string
+          status: Database["public"]["Enums"]["voice_note_status"]
+          summary: string
+          updated_at: string
+          urgency: Database["public"]["Enums"]["voice_note_urgency"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          customer_id?: string | null
+          customer_number: string
+          duration_sec?: number
+          full_text: string
+          id?: string
+          intent?: Database["public"]["Enums"]["voice_note_intent"]
+          language?: string
+          status?: Database["public"]["Enums"]["voice_note_status"]
+          summary: string
+          updated_at?: string
+          urgency?: Database["public"]["Enums"]["voice_note_urgency"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          customer_id?: string | null
+          customer_number?: string
+          duration_sec?: number
+          full_text?: string
+          id?: string
+          intent?: Database["public"]["Enums"]["voice_note_intent"]
+          language?: string
+          status?: Database["public"]["Enums"]["voice_note_status"]
+          summary?: string
+          updated_at?: string
+          urgency?: Database["public"]["Enums"]["voice_note_urgency"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "voice_notes_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +239,17 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      user_plan: "Free" | "Pro" | "Premium"
+      voice_note_intent:
+        | "Reservation"
+        | "Complaint"
+        | "Price Inquiry"
+        | "General"
+        | "Urgent"
+        | "Order"
+        | "Cancellation"
+      voice_note_status: "Open" | "In Progress" | "Resolved" | "Archived"
+      voice_note_urgency: "low" | "medium" | "high"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +376,19 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      user_plan: ["Free", "Pro", "Premium"],
+      voice_note_intent: [
+        "Reservation",
+        "Complaint",
+        "Price Inquiry",
+        "General",
+        "Urgent",
+        "Order",
+        "Cancellation",
+      ],
+      voice_note_status: ["Open", "In Progress", "Resolved", "Archived"],
+      voice_note_urgency: ["low", "medium", "high"],
+    },
   },
 } as const
