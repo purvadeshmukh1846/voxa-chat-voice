@@ -1,13 +1,13 @@
 # Voxa - WhatsApp Voice Notes to Searchable Transcripts
 
-Turn chaotic WhatsApp voice notes into searchable, summarized text transcripts — built for small businesses in Southeast Asia.
+Turn chaotic WhatsApp voice notes into searchable, summarized text transcripts — built for small businesses in India.
 
 🌐 **Live Demo:** [voxa-chat-voice.lovable.app](https://voxa-chat-voice.lovable.app)
 
 ---
 
 ## 🚀 What Voxa Does
-- Automatically transcribes voice notes in English, Bahasa Indonesia, Thai, Vietnamese & Tagalog.
+- Automatically transcribes voice notes in English, Hindi & Marathi.
 - Generates a 2-line AI summary and tags each message with intent (Reservation, Complaint, Urgent, etc.).
 - Provides a clean, searchable dashboard to manage all customer inquiries — no more listening to long audio!
 

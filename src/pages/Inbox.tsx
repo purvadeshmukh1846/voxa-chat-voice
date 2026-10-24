@@ -8,12 +8,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { TranscriptCard } from "@/components/dashboard/TranscriptCard";
 import { NewVoiceNoteDialog } from "@/components/dashboard/NewVoiceNoteDialog";
 import { listVoiceNotes, type VoiceNoteStatus } from "@/services/voiceNotes";
+import { VOXA_LANGUAGES } from "@/lib/languages";
 import { seedSampleVoiceNotes } from "@/services/seed";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
 const statusFilters: ("All" | VoiceNoteStatus)[] = ["All", "Open", "In Progress", "Resolved", "Archived"];
-const languages = ["All", "English", "Bahasa Indonesia", "Thai", "Vietnamese", "Tagalog"] as const;
+const languages = ["All", ...VOXA_LANGUAGES] as const;
 const PAGE_SIZE = 20;
 
 export default function Inbox() {
