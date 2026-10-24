@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
 const statusFilters: ("All" | VoiceNoteStatus)[] = ["All", "Open", "In Progress", "Resolved", "Archived"];
-const languages = ["All", "English", "Bahasa Indonesia", "Thai", "Vietnamese", "Tagalog"] as const;
+const languages = ["All", ...VOXA_LANGUAGES] as const;
 const PAGE_SIZE = 20;
 
 export default function Inbox() {

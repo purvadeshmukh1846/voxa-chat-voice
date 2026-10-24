@@ -11,7 +11,7 @@ import { createVoiceNote, type VoiceNoteIntent } from "@/services/voiceNotes";
 import { toast } from "sonner";
 
 const intents: VoiceNoteIntent[] = ["Reservation", "Complaint", "Price Inquiry", "General", "Urgent", "Order", "Cancellation"];
-const languages = ["English", "Bahasa Indonesia", "Thai", "Vietnamese", "Tagalog"];
+const languages = [...VOXA_LANGUAGES];
 
 export function NewVoiceNoteDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
   const qc = useQueryClient();
@@ -69,7 +69,7 @@ export function NewVoiceNoteDialog({ open, onOpenChange }: { open: boolean; onOp
         <div className="space-y-4">
           <div>
             <Label htmlFor="number" className="mb-2 block text-sm">Customer number</Label>
-            <Input id="number" value={number} onChange={(e) => setNumber(e.target.value)} placeholder="+62 812-3456-7890" />
+            <Input id="number" value={number} onChange={(e) => setNumber(e.target.value)} placeholder="+91 98765-43210" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -98,7 +98,7 @@ export function NewVoiceNoteDialog({ open, onOpenChange }: { open: boolean; onOp
           <div>
             <Label htmlFor="text" className="mb-2 block text-sm">Transcript</Label>
             <Textarea id="text" value={text} onChange={(e) => setText(e.target.value)} rows={4} maxLength={2000}
-              placeholder="e.g. Halo, saya mau pesan meja untuk 4 orang…" />
+              placeholder="e.g. Namaste, kal raat 7 baje 4 logon ke liye table book karna hai…" />
           </div>
         </div>
 
