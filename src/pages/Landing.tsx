@@ -34,13 +34,13 @@ export default function Landing() {
           <div className="flex flex-col justify-center animate-fade-in">
             <span className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
               <MessageSquareText className="h-3.5 w-3.5" />
-              Built for WhatsApp Business in Southeast Asia
+              Built for WhatsApp Business in India
             </span>
             <h1 className="text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
               Finally, your WhatsApp voice notes <span className="text-gradient">work as hard as you do.</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-              Auto-transcribe, summarize, and search every voice inquiry in seconds — built for cafés, clinics, salons and home services across Southeast Asia.
+              Auto-transcribe, summarize, and search every voice inquiry in seconds — built for cafés, clinics, salons and home services across India.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-gradient-hero text-base shadow-glow hover:opacity-90">
@@ -159,7 +159,7 @@ export default function Landing() {
       </section>
 
       <footer className="border-t border-border/40 py-8 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} Voxa. Made for SEA businesses.
+        © {new Date().getFullYear()} Voxa. Made for Indian businesses.
       </footer>
     </div>
   );

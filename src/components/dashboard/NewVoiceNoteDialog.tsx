@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Loader2, Sparkles, Upload } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createVoiceNote, type VoiceNoteIntent } from "@/services/voiceNotes";
+import { VOXA_LANGUAGES } from "@/lib/languages";
 import { toast } from "sonner";
 
 const intents: VoiceNoteIntent[] = ["Reservation", "Complaint", "Price Inquiry", "General", "Urgent", "Order", "Cancellation"];

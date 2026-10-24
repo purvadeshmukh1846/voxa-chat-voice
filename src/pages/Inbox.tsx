@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { TranscriptCard } from "@/components/dashboard/TranscriptCard";
 import { NewVoiceNoteDialog } from "@/components/dashboard/NewVoiceNoteDialog";
 import { listVoiceNotes, type VoiceNoteStatus } from "@/services/voiceNotes";
+import { VOXA_LANGUAGES } from "@/lib/languages";
 import { seedSampleVoiceNotes } from "@/services/seed";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
