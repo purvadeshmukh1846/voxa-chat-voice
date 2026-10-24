@@ -52,7 +52,7 @@ export default function Landing() {
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-primary" /> No credit card</span>
-              <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-primary" /> 5 languages</span>
+              <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-primary" /> 3 languages</span>
               <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-primary" /> Setup in 2 min</span>
             </div>
           </div>
