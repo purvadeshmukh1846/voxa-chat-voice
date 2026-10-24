@@ -5,7 +5,7 @@ import heroImg from "@/assets/hero-split.png";
 import { ArrowRight, Check, Languages, MessageSquareText, Search, Sparkles, Zap } from "lucide-react";
 
 const features = [
-  { icon: Languages, title: "5 SEA languages", desc: "Transcribe English, Bahasa Indonesia, Thai, Vietnamese and Tagalog out of the box." },
+  { icon: Languages, title: "3 languages", desc: "Transcribe English, Hindi and Marathi out of the box." },
   { icon: Sparkles, title: "Smart summaries", desc: "Every voice note becomes a 2-line summary with intent and key entities." },
   { icon: Search, title: "Searchable inbox", desc: "Full-text search across every customer message, filter by intent or status." },
   { icon: Zap, title: "One-tap status", desc: "Mark as Open, Replied or Resolved. Never lose track of an inquiry again." },
@@ -52,7 +52,7 @@ export default function Landing() {
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-primary" /> No credit card</span>
-              <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-primary" /> 5 languages</span>
+              <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-primary" /> 3 languages</span>
               <span className="flex items-center gap-1.5"><Check className="h-4 w-4 text-primary" /> Setup in 2 min</span>
             </div>
           </div>
