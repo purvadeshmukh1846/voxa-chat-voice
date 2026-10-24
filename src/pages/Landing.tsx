@@ -5,7 +5,7 @@ import heroImg from "@/assets/hero-split.png";
 import { ArrowRight, Check, Languages, MessageSquareText, Search, Sparkles, Zap } from "lucide-react";
 
 const features = [
-  { icon: Languages, title: "5 SEA languages", desc: "Transcribe English, Bahasa Indonesia, Thai, Vietnamese and Tagalog out of the box." },
+  { icon: Languages, title: "3 languages", desc: "Transcribe English, Hindi and Marathi out of the box." },
   { icon: Sparkles, title: "Smart summaries", desc: "Every voice note becomes a 2-line summary with intent and key entities." },
   { icon: Search, title: "Searchable inbox", desc: "Full-text search across every customer message, filter by intent or status." },
   { icon: Zap, title: "One-tap status", desc: "Mark as Open, Replied or Resolved. Never lose track of an inquiry again." },
